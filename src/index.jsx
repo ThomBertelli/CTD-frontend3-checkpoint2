@@ -8,13 +8,21 @@ import Footer from "./Components/Footer";
 import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "./hooks/useTheme";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //Lembre-se de configurar suas rotas e seu contexto aqui
 root.render(
+
+
+
   <React.StrictMode>
     <ThemeProvider>
-    <App/>
+    
+      <App/>   
     </ThemeProvider>
   </React.StrictMode>
 );
