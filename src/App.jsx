@@ -1,11 +1,11 @@
 
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
-import { ThemeProvider } from "./hooks/useTheme";
 import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 import Home from "./Routes/Home";
 
 import{useTheme} from "./hooks/useTheme"
+import Contact from "./Routes/Login";
 
 function App() {
 
@@ -25,8 +25,12 @@ function App() {
       </>,
       children: [
         {
-          path:'',
+          path:'home',
           element: <Home/>
+        },
+        {
+          path:'login',
+          element: <Contact/>
         },
 
       ]
@@ -38,13 +42,7 @@ function App() {
   return (
 
         <RouterProvider router={appRouter} />
-        
 
-        
-      
-
-      
-    
     
   );
 }
