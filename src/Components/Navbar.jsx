@@ -2,10 +2,11 @@ import styles from "./Navbar.module.css";
 import { useTheme} from "../hooks/useTheme"
 
 
+
 const Navbar = () => {
 
   const { theme,changeTheme } = useTheme();
-
+  
   const handleClick = () =>{
 
     if(theme === 'light'){

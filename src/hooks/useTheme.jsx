@@ -11,7 +11,6 @@ export function ThemeProvider(props) {
     // State que irá controlar qual Tema a aplicação está usando
     const [theme, setTheme] = useState(themeLocalStorage === null ? 'light' : themeLocalStorage)
     
-    console.log(theme)
 
     // Função responsável por Trocar o Tema
     function changeTheme(themeRecieved) {

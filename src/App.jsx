@@ -1,50 +1,54 @@
 
-import Footer from "./Components/Footer";
-import Navbar from "./Components/Navbar";
-import {createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from "./Routes/Home";
-
-import{useTheme} from "./hooks/useTheme"
 import Contact from "./Routes/Login";
+import { Layout } from "./Components/Layout";
+import { ThemeProvider } from "./hooks/useTheme";
+import { AuthProvider } from "./hooks/useAuth"
 
 function App() {
 
-  const {theme} = useTheme();
+
+
+
+
+
 
   const appRouter = createBrowserRouter([
     {
+
       path: '',
-      element: <>
-      <div className={`app ${theme}`}>
-          <Navbar />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      </>,
+      element: <Layout />,
       children: [
         {
-          path:'home',
-          element: <Home/>
+          path: '/home',
+          element: <Home />
         },
         {
-          path:'login',
-          element: <Contact/>
-        },
+          path: '/login',
+          element: <Contact />
+        }
 
       ]
-  
+
     }
   ])
 
 
+
+
   return (
 
-        <RouterProvider router={appRouter} />
+    <AuthProvider>
 
-    
-  );
+      <ThemeProvider>
+        <RouterProvider router={appRouter} />
+      </ThemeProvider>
+
+    </AuthProvider>
+
+  )
+
 }
 
 export default App;

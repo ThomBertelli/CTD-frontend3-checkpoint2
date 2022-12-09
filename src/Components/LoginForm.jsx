@@ -3,6 +3,7 @@ import { useTheme } from "../hooks/useTheme";
 import { useState } from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import {useAuth} from "../hooks/useAuth"
 
 
 
@@ -12,8 +13,7 @@ const LoginForm = () => {
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const MySwal = withReactContent(Swal)
-
-
+  const {setToken} = useAuth()
   const handleSubmit = (e) => {
 
    
@@ -54,7 +54,7 @@ const LoginForm = () => {
       })
         
       .then(data => {
-        localStorage.setItem('token', data.token)
+        setToken(data.token)
         MySwal.fire({
           icon:'success',
           position:'top-end',
@@ -80,6 +80,7 @@ const LoginForm = () => {
  
 
   const { theme } = useTheme();
+  
 
   return (
     <>
