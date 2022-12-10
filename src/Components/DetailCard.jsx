@@ -17,12 +17,9 @@ const DetailCard = () => {
   useEffect(() => {
 
     const url = `http://dhodonto.ctdprojetos.com.br/dentista?matricula=${matricula}`;
-    const options = {
-      method: 'GET', 
-      
-    };
+    
 
-    fetch(url, options)
+    fetch(url)
 
       .then (async response => {
         if(!response.ok){
