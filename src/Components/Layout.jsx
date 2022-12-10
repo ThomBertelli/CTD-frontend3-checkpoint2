@@ -12,9 +12,7 @@ const Layout = () =>{
     const { theme } = useTheme();
     const navigate = useNavigate()
     const {token} = useAuth()
-    console.log(token)
-
-
+    
     const isLogged = () => {
 
         if(token == null || token === '' || token === ' ' || token === 'null'){

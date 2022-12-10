@@ -5,6 +5,7 @@ import Contact from "./Routes/Login";
 import { Layout } from "./Components/Layout";
 import { ThemeProvider } from "./hooks/useTheme";
 import { AuthProvider } from "./hooks/useAuth"
+import DetailCard from './Components/DetailCard';
 
 function App() {
 
@@ -27,7 +28,13 @@ function App() {
         {
           path: '/login',
           element: <Contact />
+        },
+        {
+          path:'/dentist/:matricula',
+          element: <DetailCard />
+
         }
+        
 
       ]
 
