@@ -1,12 +1,15 @@
 import styles from "./Navbar.module.css";
 import { useTheme} from "../hooks/useTheme"
-
-
+import {useAuth} from "../hooks/useAuth"
 
 const Navbar = () => {
 
   const { theme,changeTheme } = useTheme();
+  const {token,setToken} = useAuth()
   
+ 
+
+
   const handleClick = () =>{
 
     if(theme === 'light'){
@@ -15,6 +18,13 @@ const Navbar = () => {
       changeTheme('light')
     }
 
+  }
+
+  const handleLoginButton = () => {
+
+    if(token !== null || token !== 'null'){
+      setToken('null')
+    }
   }
  
 
@@ -62,8 +72,8 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/login">
-                  Login
+                <a className="nav-link" href="/login" onClick={handleLoginButton} >
+                  {token !== 'null'? 'Logout': 'Login'}
                 </a>
               </li>
               <li className={`nav-item`}>

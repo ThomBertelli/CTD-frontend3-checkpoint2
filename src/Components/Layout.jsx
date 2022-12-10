@@ -19,9 +19,11 @@ const Layout = () =>{
 
         if(token == null || token === '' || token === ' ' || token === 'null'){
             navigate('/login')
+            
         }
         else {
           navigate('/home')
+          
         }
 
 
