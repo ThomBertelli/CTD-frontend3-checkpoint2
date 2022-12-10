@@ -127,7 +127,7 @@ const ScheduleForm = () => {
       .then(data => {
         
         MySwal.fire({
-          text:'Agendamnto realizado!',
+          text:'Agendamento realizado com sucesso!',
           icon: 'success',
           position: 'top-end',
           showConfirmButton: false,
