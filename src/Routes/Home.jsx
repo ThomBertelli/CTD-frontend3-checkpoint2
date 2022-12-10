@@ -12,16 +12,9 @@ const Home = () => {
     //Usando o componente <Card />
 
     const url = 'https://dhodonto.ctdprojetos.com.br/dentista';
-    const options = {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      
-    };
+   
 
-    fetch(url, options)
+    fetch(url)
 
       .then (async response => {
         if(!response.ok){

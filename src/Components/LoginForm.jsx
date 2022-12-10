@@ -63,11 +63,11 @@ const LoginForm = () => {
           width:'15rem'
       })})
       .catch(() => MySwal.fire({
-        
+        text:'Usuário ou Senha incorreto(s)!',
         icon:'error',
         position:'top-end',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 3000,
         width:'15rem',
         
       }))
