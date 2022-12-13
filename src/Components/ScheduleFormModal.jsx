@@ -21,7 +21,7 @@ const ScheduleFormModal = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div > 
 
   );
 };

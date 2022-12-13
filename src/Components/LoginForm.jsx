@@ -94,7 +94,8 @@ const LoginForm = () => {
               className={`form-control ${styles.inputSpacing}`}
               placeholder="Login"
               name="login"
-              required
+              required title="5 to 10 characters"
+              pattern=".{5,10}" 
               value={username}
               onChange={event => setUserName(event.target.value)}
             />
@@ -103,7 +104,8 @@ const LoginForm = () => {
               placeholder="Password"
               name="password"
               type="password"
-              required
+              required title="5 to 10 characters"
+              pattern=".{5,10}"
               value={password}
               onChange={event => setPassword(event.target.value)}
             />
