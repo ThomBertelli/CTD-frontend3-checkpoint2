@@ -4,7 +4,6 @@ import { useTheme } from "../hooks/useTheme"
 import { useAuth } from "../hooks/useAuth"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import {useNavigate, redirect } from "react-router-dom"
 
 const ScheduleForm = () => {
   const { token } = useAuth()
@@ -12,7 +11,7 @@ const ScheduleForm = () => {
   const [dentists, setDentists] = useState([])
   const [patients, setPatients] = useState([])
   const MySwal = withReactContent(Swal)
-  const navigate = useNavigate()
+
 
   
 
@@ -61,11 +60,6 @@ const ScheduleForm = () => {
       })
       .catch(Error)
 
-
-
-
-
-
   }, []);
 
   const handleSubmit = (event) => {
@@ -80,18 +74,12 @@ const ScheduleForm = () => {
     const dentistId = event.target.dentist.value
     const patientId = event.target.patient.value
     const consultDate = event.target.appointmentDate.value
-    
-    
 
-    
-
-    const paciente = patients.filter(patient => patient.matricula === patientId? patient: null)
-
+    const paciente = patients.filter(patient => patient.matricula === patientId ? patient: null)
     const dentista = dentists.filter(dentist => dentist.matricula === dentistId ? dentist: null)
 
-    
-
     const url = 'http://dhodonto.ctdprojetos.com.br/consulta';
+
     const options = {
       method: 'POST',
       headers: {
@@ -146,9 +134,7 @@ const ScheduleForm = () => {
         width: '15rem',
 
       }))
-
-
-
+      
   };
 
   return (

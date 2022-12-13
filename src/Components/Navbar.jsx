@@ -1,20 +1,20 @@
 import styles from "./Navbar.module.css";
-import { useTheme} from "../hooks/useTheme"
-import {useAuth} from "../hooks/useAuth"
+import { useTheme } from "../hooks/useTheme"
+import { useAuth } from "../hooks/useAuth"
 
 const Navbar = () => {
 
-  const { theme,changeTheme } = useTheme();
-  const {token,setToken} = useAuth()
-  
- 
+  const { theme, changeTheme } = useTheme();
+  const { token, setToken } = useAuth()
 
 
-  const handleClick = () =>{
 
-    if(theme === 'light'){
+
+  const handleClick = () => {
+
+    if (theme === 'light') {
       changeTheme('dark')
-    }else{
+    } else {
       changeTheme('light')
     }
 
@@ -22,11 +22,11 @@ const Navbar = () => {
 
   const handleLoginButton = () => {
 
-    if(token !== null || token !== 'null'){
+    if (token !== null || token !== 'null') {
       setToken('null')
     }
   }
- 
+
 
 
   return (
@@ -73,7 +73,7 @@ const Navbar = () => {
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
                 <a className="nav-link" href="/login" onClick={handleLoginButton} >
-                  {token !== 'null'? 'Logout': 'Login'}
+                  {token !== 'null' ? 'Logout' : 'Login'}
                 </a>
               </li>
               <li className={`nav-item`}>
@@ -82,10 +82,10 @@ const Navbar = () => {
                  Na linha seguinte deverá ser feito um teste se a aplicação
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-${theme} ${styles.btnStyle }`}
+                  className={`btn btn-${theme} ${styles.btnStyle}`}
                   onClick={handleClick}
                 >
-                  {theme === 'light'? '🌙':'☀'}
+                  {theme === 'light' ? '🌙' : '☀'}
                 </button>
               </li>
             </ul>

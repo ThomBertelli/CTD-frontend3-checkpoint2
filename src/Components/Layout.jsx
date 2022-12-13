@@ -20,11 +20,8 @@ const Layout = () =>{
             
         }
         else {
-          navigate('/home')
-          
+          navigate('/home') 
         }
-
-
     }
 
     useEffect(() =>{
@@ -42,9 +39,6 @@ const Layout = () =>{
         </div>
       
     )
-
-
-
 }
 
 export {Layout}

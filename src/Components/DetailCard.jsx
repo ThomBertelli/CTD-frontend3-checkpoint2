@@ -4,38 +4,38 @@ import styles from "./DetailCard.module.css";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import {useTheme} from "../hooks/useTheme"
+import { useTheme } from "../hooks/useTheme"
 
 const DetailCard = () => {
 
-  const {theme} = useTheme()
-  
-  const {matricula} = useParams()
+  const { theme } = useTheme()
+
+  const { matricula } = useParams()
 
   const [dentist, setDentist] = useState([])
 
   useEffect(() => {
 
     const url = `http://dhodonto.ctdprojetos.com.br/dentista?matricula=${matricula}`;
-    
+
 
     fetch(url)
 
-      .then (async response => {
-        if(!response.ok){
+      .then(async response => {
+        if (!response.ok) {
           const text = await response.text();
           throw new Error(text);
-        }else{
+        } else {
           return response.json()
         }
       })
       .then(data => {
-        
+
         setDentist(data)
-        
+
       })
       .catch(Error)
-    
+
   }, []);
 
 
@@ -52,7 +52,7 @@ const DetailCard = () => {
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
         <div
-          className={` ${theme === 'dark' ? styles.cardDark: ''} card-body row `}
+          className={` ${theme === 'dark' ? styles.cardDark : ''} card-body row `}
         >
           <div className="col-sm-12 col-lg-6">
             <img

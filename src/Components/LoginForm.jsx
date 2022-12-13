@@ -3,7 +3,7 @@ import { useTheme } from "../hooks/useTheme";
 import { useState } from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import {useAuth} from "../hooks/useAuth"
+import { useAuth } from "../hooks/useAuth"
 
 
 
@@ -13,17 +13,17 @@ const LoginForm = () => {
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const MySwal = withReactContent(Swal)
-  const {setToken} = useAuth()
+  const { setToken } = useAuth()
   const handleSubmit = (e) => {
 
-   
+
     //Nesse handlesubmit você deverá usar o preventDefault,
     e.preventDefault()
     //enviar os dados do formulário e enviá-los no corpo da requisição 
     //para a rota da api que faz o login /auth
     //lembre-se que essa rota vai retornar um Bearer Token e o mesmo deve ser salvo
     //no localstorage para ser usado em chamadas futuras
-    
+
 
 
 
@@ -35,52 +35,51 @@ const LoginForm = () => {
         'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify({
-        
-          username: username,
-          password: password
-        
+
+        username: username,
+        password: password
+
       })
     };
 
     fetch(url, options)
 
-      .then (async response => {
-        if(!response.ok){
+      .then(async response => {
+        if (!response.ok) {
           const text = await response.text();
           throw new Error(text);
-        }else{
+        } else {
           return response.json()
         }
       })
-        
+
       .then(data => {
         setToken(data.token)
         MySwal.fire({
-          icon:'success',
-          position:'top-end',
+          icon: 'success',
+          position: 'top-end',
           showConfirmButton: false,
           timer: 1500,
-          width:'15rem'
-      })})
+          width: '15rem'
+        })
+      })
       .catch(() => MySwal.fire({
-        text:'Usuário ou Senha incorreto(s)!',
-        icon:'error',
-        position:'top-end',
+        text: 'Usuário ou Senha incorreto(s)!',
+        icon: 'error',
+        position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
-        width:'15rem',
-        
-      }))
-      
+        width: '15rem',
 
-    
+      }))
+
     //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
   };
- 
+
 
   const { theme } = useTheme();
-  
+
 
   return (
     <>
@@ -96,7 +95,7 @@ const LoginForm = () => {
               placeholder="Login"
               name="login"
               required
-              value={username} 
+              value={username}
               onChange={event => setUserName(event.target.value)}
             />
             <input
@@ -105,7 +104,7 @@ const LoginForm = () => {
               name="password"
               type="password"
               required
-              value={password} 
+              value={password}
               onChange={event => setPassword(event.target.value)}
             />
             <button className="btn btn-primary" type="submit">
