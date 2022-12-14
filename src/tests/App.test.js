@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { queryByTestId, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/user-event'
+import { debug } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
 import App from '../App';
 
@@ -6,10 +8,23 @@ import {
     MemoryRouter,
     Routes,
     Route,
-    BrowserRouter
+    BrowserRouter,
+    Link
 } from "react-router-dom";
 import Card from '../Components/Card';
+import DetailCard from '../Components/DetailCard';
+import { Simulate } from 'react-dom/test-utils';
 
+const mockData = {
+    matricula: '555',
+    nome: 'nometeste',
+    sobrenome: 'sobrenometeste',
+    usuario: {
+        username: 'usernameteste'
+    }
+}
+
+const mockTheme = 'dark'
 
 const token = localStorage.getItem('token')
 
@@ -69,29 +84,48 @@ it('Test dark mode on modal', () => {
     }
 })
 
-it('Test render dentists cards', async() => {
+it('Test render dentists cards', async () => {
 
-    const mockData ={
-        nome: 'nometeste',
-        sobrenome: 'sobrenometeste',
-        usuario:{
-            username:'usernameteste'
-        }
-    }
 
-    const mockTheme = 'dark'
-    
-    const {getByText} = render(
-        
+
+    const { getByText } = render(
+
         <MemoryRouter initialEntries={['/home']} >
-            <ThemeProvider value = {mockTheme}>
-                <Card data={mockData}/>
-            </ThemeProvider>            
+            <ThemeProvider value={mockTheme}>
+                <Card data={mockData} />
+            </ThemeProvider>
         </MemoryRouter>)
 
-    await waitFor(()=> getByText(/nometeste/i))
+    await waitFor(() => getByText(/nometeste/i))
 
 }
 
-
 )
+
+it('Test link to card details', async () => {
+
+
+
+    const { getByText } = render(
+        <MemoryRouter  >
+            <ThemeProvider value={mockTheme}>
+                <Card data={mockData} />
+            </ThemeProvider>
+        </MemoryRouter>
+    );
+
+
+
+    await waitFor(() => getByText(/nometeste sobrenometeste/));
+
+    const link = screen.getByText(/nometeste sobrenometeste/)
+
+    Simulate.click(link)
+
+
+    setTimeout(() => {
+        expect(screen.getByText('Marcar consulta')).toBeInTheDocument()
+
+    }, 2000)
+
+})
