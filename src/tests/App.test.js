@@ -1,13 +1,14 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { getByRole, render, screen, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
 import App from '../App';
 
 import {
-    MemoryRouter,
+    MemoryRouter, Route, Routes,
 } from "react-router-dom";
 import Card from '../Components/Card';
 
 import { Simulate } from 'react-dom/test-utils';
+import DetailCard from '../Components/DetailCard';
 
 const mockData = {
     matricula: '555',
@@ -121,5 +122,42 @@ it('Test link to card details', async () => {
         expect(screen.getByText('Marcar consulta')).toBeInTheDocument()
 
     }, 2000)
+
+})
+
+it('Test if the schedule modal is rendered after click on Marcar consulta button', async () => {
+
+
+    const { getByText } = render(
+        <MemoryRouter>
+            <ThemeProvider value={mockTheme}>
+                <Card data={mockData} />
+            </ThemeProvider>
+        </MemoryRouter>
+    )
+
+    await waitFor(() => getByText(/nometeste sobrenometeste/));
+
+    const link = screen.getByText(/nometeste sobrenometeste/)
+
+    Simulate.click(link)
+
+    setTimeout(() => {
+
+
+        waitFor(() => getByText(/Detail about Dentist nometeste/));
+
+        const link2 = screen.getByRole('button')
+
+        Simulate.click(link2)
+
+        setTimeout(() => {
+            expect(screen.getByText('Schedule')).toBeInTheDocument()
+
+        }, 2000)
+    }, 2000)
+
+
+
 
 })
