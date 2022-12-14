@@ -1,18 +1,12 @@
-import { queryByTestId, render, screen, waitFor } from '@testing-library/react';
-import { fireEvent } from '@testing-library/user-event'
-import { debug } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
 import App from '../App';
 
 import {
     MemoryRouter,
-    Routes,
-    Route,
-    BrowserRouter,
-    Link
 } from "react-router-dom";
 import Card from '../Components/Card';
-import DetailCard from '../Components/DetailCard';
+
 import { Simulate } from 'react-dom/test-utils';
 
 const mockData = {
