@@ -2,9 +2,7 @@ import { getByRole, render, screen, waitFor } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
 import App from '../App';
 
-import {
-    MemoryRouter, Route, Routes,
-} from "react-router-dom";
+import {MemoryRouter} from "react-router-dom";
 import Card from '../Components/Card';
 
 import { Simulate } from 'react-dom/test-utils';
