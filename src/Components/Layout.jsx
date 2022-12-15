@@ -30,7 +30,7 @@ const Layout = () =>{
 
     return(
         
-        <div className={`app ${theme}`}>
+        <div data-testid={'layout'} className={`app ${theme}`}>
           <Navbar/>
           <main>
             <Outlet/>

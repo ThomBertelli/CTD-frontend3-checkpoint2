@@ -1,12 +1,9 @@
-import { getByRole, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, cleanup, fireEvent, getByTestId } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
 import App from '../App';
-
-import {MemoryRouter} from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import Card from '../Components/Card';
-
 import { Simulate } from 'react-dom/test-utils';
-import DetailCard from '../Components/DetailCard';
 
 const mockData = {
     matricula: '555',
@@ -19,8 +16,7 @@ const mockData = {
 
 const mockTheme = 'dark'
 
-const token = localStorage.getItem('token')
-
+afterEach(cleanup)
 it('Test header and footer render', () => {
     render(<App />);
 
@@ -32,54 +28,10 @@ it('Test header and footer render', () => {
 
 });
 
-it('Test dark mode on NavBar', () => {
-    render(<App />)
 
 
-    const element = screen.getByRole('banner')
-    const styles = getComputedStyle(element)
-
-    if (token === 'dark') {
-        expect(styles.backgroundColor).toBe('#12121296')
-    }
-})
-
-it('Test dark mode on Footer', () => {
-    render(<App />)
-
-    const element = screen.getByTestId('footer')
-    const styles = getComputedStyle(element)
-
-    if (token === 'dark') {
-        expect(styles.backgroundColor).toBe('#12121296')
-    }
-})
-
-it('Test dark mode on cards', () => {
-    render(<App />)
-
-    const element = document.querySelector('.card-body')
-    const styles = getComputedStyle(element)
-
-    if (token === 'dark') {
-        expect(styles.backgroundColor).toBe('#31313196')
-    }
-})
-
-it('Test dark mode on modal', () => {
-    render(<App />)
-
-    const element = document.querySelector('.text-center')
-    const styles = getComputedStyle(element)
-
-    if (token === 'dark') {
-        expect(styles.backgroundColor).toBe('#31313196')
-    }
-})
 
 it('Test render dentists cards', async () => {
-
-
 
     const { getByText } = render(
 
@@ -107,8 +59,6 @@ it('Test link to card details', async () => {
         </MemoryRouter>
     );
 
-
-
     await waitFor(() => getByText(/nometeste sobrenometeste/));
 
     const link = screen.getByText(/nometeste sobrenometeste/)
@@ -124,7 +74,6 @@ it('Test link to card details', async () => {
 })
 
 it('Test if the schedule modal is rendered after click on Marcar consulta button', async () => {
-
 
     const { getByText } = render(
         <MemoryRouter>
@@ -154,8 +103,22 @@ it('Test if the schedule modal is rendered after click on Marcar consulta button
 
         }, 2000)
     }, 2000)
+})
+
+it('Test dark/light theme button', async () => {
+
+    const { container } = render(
+        <App />
+
+    )
+    const div = getByTestId(container, 'layout')
+
+    expect(div).not.toHaveClass('dark')
 
 
+    fireEvent.click(container.querySelector('.btn'))
 
+    expect(div).toHaveClass('dark')
 
 })
+
