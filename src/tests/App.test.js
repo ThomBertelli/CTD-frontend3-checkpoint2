@@ -1,9 +1,13 @@
 import { render, screen, waitFor, cleanup, fireEvent, getByTestId } from '@testing-library/react';
 import { ThemeProvider } from '../hooks/useTheme';
+import { AuthProvider } from '../hooks/useAuth';
 import App from '../App';
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Card from '../Components/Card';
 import { Simulate } from 'react-dom/test-utils';
+import DetailCard  from '../Components/DetailCard';
+import LoginForm  from '../Components/LoginForm';
+
 
 const mockData = {
     matricula: '555',
@@ -41,71 +45,58 @@ it('Test render dentists cards', async () => {
             </ThemeProvider>
         </MemoryRouter>)
 
-    await waitFor(() => getByText(/nometeste/i))
+
+    expect(screen.getByText(/nometeste/i))
 
 }
 
 )
 
-it('Test link to card details', async () => {
-
+it('Test card details route', async () => {
 
 
     const { getByText } = render(
         <MemoryRouter  >
             <ThemeProvider value={mockTheme}>
-                <Card data={mockData} />
+                <AuthProvider>
+                    <Routes>
+                        <Route path={'/'} element={<DetailCard />} />
+                    </Routes>
+                </AuthProvider>
             </ThemeProvider>
         </MemoryRouter>
     );
 
-    await waitFor(() => getByText(/nometeste sobrenometeste/));
-
-    const link = screen.getByText(/nometeste sobrenometeste/)
-
-    Simulate.click(link)
+    
+    expect(getByText('Marcar consulta')).toBeInTheDocument()
 
 
-    setTimeout(() => {
-        expect(screen.getByText('Marcar consulta')).toBeInTheDocument()
-
-    }, 2000)
 
 })
 
-it('Test if the schedule modal is rendered after click on Marcar consulta button', async () => {
+it('Test login route', async () => {
 
-    const { getByText } = render(
-        <MemoryRouter>
+
+    const { getByText} = render(
+        <MemoryRouter  >
             <ThemeProvider value={mockTheme}>
-                <Card data={mockData} />
+                <AuthProvider>
+                    <Routes>
+                        <Route path={'/'} element={<LoginForm />} />
+                    </Routes>
+                </AuthProvider>
             </ThemeProvider>
         </MemoryRouter>
-    )
+    );
 
-    await waitFor(() => getByText(/nometeste sobrenometeste/));
-
-    const link = screen.getByText(/nometeste sobrenometeste/)
-
-    Simulate.click(link)
-
-    setTimeout(() => {
+    
+    expect(getByText('Send')).toBeInTheDocument()
 
 
-        waitFor(() => getByText(/Detail about Dentist nometeste/));
 
-        const link2 = screen.getByRole('button')
-
-        Simulate.click(link2)
-
-        setTimeout(() => {
-            expect(screen.getByText('Schedule')).toBeInTheDocument()
-
-        }, 2000)
-    }, 2000)
 })
 
-it('Test dark/light theme button', async () => {
+it('Test dark/light theme  button', async () => {
 
     const { container } = render(
         <App />
